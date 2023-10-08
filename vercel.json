@@ -1,0 +1,15 @@
+{
+     "version": 2,
+     "builds": [
+       {
+         "src": "./track-id-api/index.py",
+         "use": "@vercel/python"
+       }
+     ],
+     "routes": [
+       {
+         "src": "/(.*)",
+         "dest": "./track-id-api/index.py"
+       }
+     ]
+   }
