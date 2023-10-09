@@ -16,6 +16,10 @@ def is_valid_base64(string):
     except base64.binascii.Error:
         return False
 
+def displayImage(name,img):
+    cv2.imshow(name,img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
  
 
 def enhance_image(base64_string):
@@ -24,27 +28,20 @@ def enhance_image(base64_string):
     np_arr = np.frombuffer(image_data, np.uint8)
     img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
-    # img = cv2.imread("C:\\Users\\NJS\\Desktop\\all project\\Track-id\\backend_Flask\\track-id-backend-in-flask\\track-id-api\\sample.jpg")
-    # lessnoise = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 15)
-    # threshold = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU) [1]
+    img = cv2.imread("C:\\Users\\NJS\\Desktop\\all project\\Track-id\\backend_Flask\\track-id-backend-in-flask\\track-id-api\\sample-c.JPG")
+ 
+    
+
+    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    displayImage("gray",gray)
+ 
+    # Performing OTSU threshold
+    ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)  
+    displayImage("thresh",thresh1)
 
-    # cv2.imshow('process Image gray', gray)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    text = pytesseract.image_to_string(gray)
-        
+    text = pytesseract.image_to_string(thresh1)
     print('----text',text,"text----")
- 
-  
-    
-
-    
-    # # Convert the image to gray scale
-    # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
- 
-    # # Performing OTSU threshold
-    # ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
     
     # # Specify structure shape and kernel size. 
     # # Kernel size increases or decreases the area 
@@ -59,14 +56,11 @@ def enhance_image(base64_string):
     # # Finding contours
     # contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, 
     #                                                 cv2.CHAIN_APPROX_NONE)
-    
+     
     # # Creating a copy of image
     # im2 = img.copy()
 
-    # # Display the  image
-    # cv2.imshow('process Image', im2)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+ 
     
     # # A text file is created and flushed
     # file = open("recognized.txt", "w+")
@@ -85,6 +79,7 @@ def enhance_image(base64_string):
         
     #     # Cropping the text block for giving input to OCR
     #     cropped = im2[y:y + h, x:x + w]
+       
         
     #     # Open the file in append mode
     #     file = open("recognized.txt", "a")
