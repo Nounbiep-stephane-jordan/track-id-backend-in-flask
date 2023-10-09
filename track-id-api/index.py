@@ -20,6 +20,7 @@ def displayImage(name,img):
     cv2.imshow(name,img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
  
 
 def enhance_image(base64_string):
@@ -28,7 +29,7 @@ def enhance_image(base64_string):
     np_arr = np.frombuffer(image_data, np.uint8)
     img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
-    img = cv2.imread("C:\\Users\\NJS\\Desktop\\all project\\Track-id\\backend_Flask\\track-id-backend-in-flask\\track-id-api\\sample-c.JPG")
+    # img = cv2.imread("C:\\Users\\NJS\\Desktop\\all project\\Track-id\\backend_Flask\\track-id-backend-in-flask\\track-id-api\\sample-c.JPG")
  
     
 
